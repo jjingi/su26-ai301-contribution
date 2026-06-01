@@ -1,19 +1,19 @@
 # Contribution [#]: [Issue Title]
 
 **Contribution Number:** [1 / 2 / 3]  
-**Student:** [Jin Gi Min]  
-**Issue:** [[GitHub issue link](https://github.com/Portabase/portabase/issues/265)]  
-**Status:** [Phase I] [Complete]
+**Student:** Jin Gi Min  
+**Issue:** [GitHub issue link](https://github.com/Portabase/portabase/issues/265) 
+**Status:** Phase I Complete
 
 ---
 
 ## Why I Chose This Issue
 
-[I chose this issue because it matches my interest in full-stack development and cloud storage features. The work involves TypeScript, React, backend provider logic, and UI form integration, which are areas I want to get better at through a real open-source contribution.
+I chose this issue because it matches my interest in full-stack development and cloud storage features. The work involves TypeScript, React, backend provider logic, and UI form integration, which are areas I want to get better at through a real open-source contribution.
 
 I also like that the issue is clearly scoped. The issue lists the exact files to create or update, and the acceptance criteria explain what “done” should look like, including screenshots of the Azure Blob Storage option and configuration form. From reading the issue, I understand that the final result should let Portabase users configure Azure Blob Storage as a backup destination.
 
-This issue also seems active and claimable because it is recent, labeled as a good first issue, and I did not see an existing pull request or another contributor actively working on it. Before starting implementation, I plan to comment on the issue and ask if there is a preferred testing approach for the Azure provider functions.]
+This issue also seems active and claimable because it is recent, labeled as a good first issue, and I did not see an existing pull request or another contributor actively working on it. Before starting implementation, I plan to comment on the issue and ask if there is a preferred testing approach for the Azure provider functions.
 
 ---
 
