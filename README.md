@@ -4,7 +4,7 @@
 **Student:** Jin Gi Min
 **Issue:** [Portabase/portabase#265](https://github.com/Portabase/portabase/issues/265)
 **Working Branch:** [`feature/Integrate-Azure-Blob`](https://github.com/jjingi/portabase/tree/feature/Integrate-Azure-Blob)
-**Status:** Phase I Complete
+**Status:** Phase II Complete
 
 ---
 
