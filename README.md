@@ -4,7 +4,7 @@
 **Student:** Jin Gi Min
 **Issue:** [Portabase/portabase#265](https://github.com/Portabase/portabase/issues/265)
 **Working Branch:** [`feature/Integrate-Azure-Blob`](https://github.com/jjingi/portabase/tree/feature/Integrate-Azure-Blob)
-**Status:** Phase II Complete
+**Status:** Phase III Complete
 
 ---
 
@@ -142,21 +142,9 @@ The `google-drive` provider is a second reference for a provider that needs an S
 
 ## Testing Strategy
 
-### Unit Tests
-
-- [ ] `pingBlob` returns `{success: true}` against a reachable container and `{success: false}` with a clear message when the container is missing or credentials are wrong.
-- [ ] `uploadBlob` handles `Buffer`, `Uint8Array`, and `Readable` inputs (matching the S3 handler's input handling).
-- [ ] `getBlob` returns the stored file and, when requested, a signed/SAS URL; returns `{success: false, error: "File not found"}` for a missing blob.
-- [ ] `deleteBlob` and `copyBlob` succeed and surface errors as `StorageResult` rather than throwing.
-
-### Integration Tests
-
-- [ ] Create a `blob` storage channel through the form and confirm it persists with the correct discriminated-union shape.
-- [ ] Dispatch a real database backup to an Azure channel and confirm `backupStorage` status transitions to success.
-
-### Manual Testing
-
-Reproduce the four UI steps above against an Azure Storage account (or the Azurite emulator) and confirm the provider is selectable, configurable, testable, and that a backup round-trips.
+- No automated test suite exists in this codebase
+- Manual testing: ran pnpm dev, added Azure Blob channel via UI, verified "Test Storage" and "Add Channel" both succeeded
+- TypeScript check: ran pnpm tsc --noEmit — confirmed zero new errors introduced by my changes
 
 ---
 
@@ -169,11 +157,21 @@ Reproduce the four UI steps above against an Azure Storage account (or the Azuri
 - Picked `s3` as the implementation reference because it is the smallest complete provider and uses an external SDK client like Azure will.
 - Decided to use the official `@azure/storage-blob` SDK rather than a generic S3-compatible shim, since the issue specifically asks for Azure Blob Storage.
 
-### Code Changes
+### Phae III Progress (Implementation)
 
-- **Files to be created:** `blob.schema.ts`, `blob.ts`, `blob.form.tsx`.
-- **Files to be modified:** `storages.types.ts`, `index.ts`, `channel-form.schema.ts`, `channels-helpers.tsx`, `channels-storage-helper.tsx`, `package.json`.
-- **Approach decision:** Mirror the S3 provider's error-handling contract exactly — handlers catch internally and return `StorageResult`, so the dispatcher's behavior stays uniform across providers.
+What I built:
+- Integrated Azure Blob Storage as a new storage provider in Portabase
+- Files modified/created:
+  - src/features/storages/storages.types.ts — added blob to StorageProviderKind
+  - src/features/channel/storages/Blob.schema.ts — Zod validation schema
+  - src/features/channel/storages/Blob.ts — full storage implementation (uploadBlob, getBlob, deleteBlob, pingBlob, copyBlob)
+  - src/features/channel/storages/Blob.form.tsx — UI form component
+  - src/features/channel/storages/index.ts — registered blob in handlers map
+  - src/features/channel/channel-form.schema.ts — added blob variant
+  - src/features/channel/channels-helpers.tsx — added blob case to renderChannelForm
+  - src/db/schema/12_storage-channel.ts — added blob to database enum
+  - src/db/migrations/0063_steady_randall_flagg.sql — database migration
+
 
 ---
 
@@ -198,7 +196,11 @@ Reproduce the four UI steps above against an Azure Storage account (or the Azuri
 
 ### Challenges Overcome
 
-- *(to be filled in during implementation)*
+- Azure vs S3 API differences — Azure Blob uses ContainerClient and BlockBlobClient instead of Minio's bucket/object methods. Learned the Azure SDK structure by comparing against the existing S3 implementation.
+- macOS case-sensitivity — Git tracked blob.ts but the filesystem showed Blob.ts, causing push issues. Solved with git mv.
+- Migration numbering conflict — Upstream added migration 0062 while I was working, causing a rebase conflict. Resolved by renumbering my migration to 0063.
+- Database enum — The provider column had a strict enum in Postgres that didn't include blob, causing silent insert failures. Fixed by updating the schema and running a migration.
+
 
 ### What I'd Do Differently Next Time
 
