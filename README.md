@@ -4,7 +4,7 @@
 **Student:** Jin Gi Min
 **Issue:** [Portabase/portabase#265](https://github.com/Portabase/portabase/issues/265)
 **Working Branch:** [`feature/Integrate-Azure-Blob`](https://github.com/jjingi/portabase/tree/feature/Integrate-Azure-Blob)
-**Status:** Phase III Complete
+**Status:** Phase IV Complete
 
 ---
 
@@ -177,14 +177,14 @@ What I built:
 
 ## Pull Request
 
-**PR Link:** *(to be added when submitted)*
+**PR Link:** [Portabase/portabase#328](https://github.com/Portabase/portabase/pull/328)
 
-**PR Description:** *Adapted from the sections above — problem, the nine wiring changes, and the test results.*
+**PR Description:** Integrated Azure Blob Storage as a fully wired storage provider in Portabase. This involved adding the `blob` provider kind to the type system, implementing all five handler operations (`upload`, `get`, `delete`, `ping`, `copy`) using the `@azure/storage-blob` SDK, creating the Zod config schema and React form component, registering the handler in the provider map, updating the discriminated-union form schema, and removing the `preview: true` flag — plus a database migration to add `blob` to the Postgres storage channel enum.
 
 **Maintainer Feedback:**
-- *(none yet)*
+- Awaiting review
 
-**Status:** In progress — Phase I complete, implementation not yet opened as a PR.
+**Status:** Awaiting review
 
 ---
 
